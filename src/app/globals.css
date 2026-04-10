@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --border-color: #e2e8f0;
+  --nav-bg: #ffffff;
+}
+
+.dark {
+  --bg-primary: #0f1b2d;
+  --bg-secondary: #162032;
+  --bg-card: #1e2e42;
+  --text-primary: #f0f4f8;
+  --text-secondary: #a0aec0;
+  --border-color: #2d4a6a;
+  --nav-bg: #0f1b2d;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.lang-ta {
+  font-family: 'Noto Sans Tamil', sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 transition-colors duration-200 flex items-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-brand-secondary text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-900 transition-colors duration-200;
+  }
+  .card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    @apply rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-brand-secondary dark:text-white;
+  }
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: #E8500A; border-radius: 3px; }
