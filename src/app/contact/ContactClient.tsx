@@ -8,11 +8,24 @@ export default function ContactClient() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, connect to a form service like Formspree or EmailJS
-    // For now we just simulate success
-    setSubmitted(true);
+
+    const response = await fetch("https://formspree.io/f/xzdkndre", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(form)
+    });
+
+    if (response.ok) {
+      setSubmitted(true);
+      setForm({ name: '', email: '', message: '' });
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -58,6 +71,7 @@ export default function ContactClient() {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -77,6 +91,7 @@ export default function ContactClient() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -95,6 +110,7 @@ export default function ContactClient() {
                   {t('message')} <span className="text-red-500">*</span>
                 </label>
                 <textarea
+                  name="message"
                   required
                   rows={5}
                   value={form.message}
