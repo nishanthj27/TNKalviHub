@@ -53,7 +53,7 @@ export const translations: Record<Language, Record<string, string>> = {
     quickLinks: 'Quick Links',
     importantLinks: 'Important Links',
     officialSite: 'Official TN Textbooks Site',
-    copyright: '© 2025 TNKalviHub. All rights reserved.',
+    copyright: '© 2026 TNKalviHub. All rights reserved.',
     builtWith: 'Built with ❤️ for Tamil Nadu students',
 
     // Misc
@@ -116,7 +116,7 @@ export const translations: Record<Language, Record<string, string>> = {
     quickLinks: 'விரைவு இணைப்புகள்',
     importantLinks: 'முக்கியமான இணைப்புகள்',
     officialSite: 'TN பாடநூல்கள் அதிகாரப்பூர்வ தளம்',
-    copyright: '© 2025 TNKalviHub. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
+    copyright: '© 2026 TNKalviHub. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
     builtWith: 'தமிழ்நாடு மாணவர்களுக்காக ❤️ உடன் உருவாக்கப்பட்டது',
 
     // Misc

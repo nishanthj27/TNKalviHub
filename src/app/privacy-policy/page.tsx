@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
         Privacy Policy
       </h1>
       <p className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
-        Last updated: January 2025
+        Last updated: May 2026
       </p>
 
       <div className="prose-like space-y-8" style={{ color: 'var(--text-primary)' }}>
