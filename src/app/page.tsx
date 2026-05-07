@@ -1,22 +1,11 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BookOpen, Play, ArrowRight, Search, FileText, HelpCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { classesData } from '@/data/books';
 import { videosData, YOUTUBE_CHANNEL_URL } from '@/data/videos';
 import ClassGrid from '@/components/ClassGrid';
-
-function BrandName() {
-  return (
-    <span className="font-extrabold">
-      <span style={{ color: '#3B8BEB' }}>TN</span>
-      <span style={{ color: '#F5A623' }}>Kalvi</span>
-      <span style={{ color: '#3B8BEB' }}>Hub</span>
-    </span>
-  );
-}
 
 function QuickSearch() {
   const { isTamil, withLanguage } = useLanguage();

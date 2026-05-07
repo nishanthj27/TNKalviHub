@@ -8,7 +8,7 @@ import { buildClassDetailContent } from '@/lib/classDetails';
 import { buildTamilClassDetailContent } from '@/lib/classDetailsTa';
 
 // ── Single subject row inside a medium card ───────────────────────────────────
-function SubjectRow({ book, classId, isTamil, detailsHref }: { book: Book; classId: number; isTamil: boolean; detailsHref: string }) {
+function SubjectRow({ book, isTamil, detailsHref }: { book: Book; isTamil: boolean; detailsHref: string }) {
   const isPlaceholder = !book.driveLink || book.driveLink === '#';
   const [isTruncated, setIsTruncated] = useState(false);
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -197,7 +197,6 @@ function MediumCard({
           <SubjectRow
             key={book.id}
             book={book}
-            classId={classId}
             isTamil={isTamil}
             detailsHref={withLanguage(`/class/${classId}/book/${book.id}`)}
           />
