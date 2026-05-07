@@ -33,7 +33,7 @@ export const translations: Record<Language, Record<string, string>> = {
     booksAvailable: 'Books Available',
 
     // Videos
-    videosTitle: 'Video Tutorials',
+    videosTitle: 'Youtube Videos',
     videosSub: 'Watch our YouTube videos for guidance on downloading and using textbooks',
     watchVideo: 'Watch on YouTube',
     visitChannel: 'Visit Our YouTube Channel',
@@ -96,7 +96,7 @@ export const translations: Record<Language, Record<string, string>> = {
     booksAvailable: 'புத்தகங்கள் கிடைக்கின்றன',
 
     // Videos
-    videosTitle: 'காணொளி பயிற்சிகள்',
+    videosTitle: 'யூடியூப் வீடியோக்கள்',
     videosSub: 'பாடநூல்களை பதிவிறக்கம் செய்வது குறித்த வழிகாட்டல் காணொளிகளை பாருங்கள்',
     watchVideo: 'YouTube இல் பாருங்கள்',
     visitChannel: 'எங்கள் YouTube சேனலை பாருங்கள்',
