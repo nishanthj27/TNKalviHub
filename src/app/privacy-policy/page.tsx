@@ -1,77 +1,106 @@
 import type { Metadata } from 'next';
+import LegalPage from '@/components/LegalPage';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy – TNKalviHub',
-  description: 'Read the Privacy Policy for TNKalviHub. Learn how we collect, use, and protect your information.',
+  title: 'Privacy Policy - TNKalviHub',
+  description: 'Read the Privacy Policy for TNKalviHub and learn how we collect, use, and protect information.',
 };
+
+const sections = [
+  {
+    title: '1. Scope of This Policy',
+    body: [
+      'This Privacy Policy explains how TNKalviHub collects, uses, stores, and discloses information when you use our website, including the home page, class pages, contact page, videos page, and other related pages available through www.tnkalvihub.com.',
+      'By accessing or using the website, you acknowledge that you have read this Privacy Policy. If you do not agree with this policy, you should discontinue use of the website.',
+    ],
+  },
+  {
+    title: '2. Information We Collect',
+    body: [
+      'We may collect limited personal information that you voluntarily provide when you contact us, such as your name, email address, and the contents of your message.',
+      'We may also collect non-personal usage information automatically, including your IP address, browser type, device information, approximate geographic region, referral source, pages viewed, time spent on pages, and interactions with the website.',
+      'Cookies, analytics tags, and similar technologies may be used to understand traffic patterns, remember user preferences, and improve site performance.',
+    ],
+  },
+  {
+    title: '3. How We Use Information',
+    body: [
+      'We use collected information to operate and maintain the website, respond to enquiries, monitor performance, improve navigation, diagnose technical issues, protect against misuse, and understand which educational resources are most useful to visitors.',
+      'Where advertising or analytics services are enabled, information may also be used to measure campaign effectiveness, personalise ad delivery, and generate aggregated traffic insights.',
+    ],
+  },
+  {
+    title: '4. Analytics, Advertising, and Cookies',
+    body: [
+      'TNKalviHub may use third-party tools such as Google Analytics and Google AdSense. These providers may set cookies or similar technologies to measure traffic, understand usage behaviour, and display advertising.',
+      'You can usually manage or disable cookies through your browser settings. Disabling cookies may affect some site functionality, analytics accuracy, or advertising personalisation.',
+      'For more information about how Google handles data, please review Google privacy materials and advertising settings available from Google.',
+    ],
+  },
+  {
+    title: '5. How We Share Information',
+    body: [
+      'We do not sell your personal information. We may share information with service providers that help us operate the website, such as hosting, analytics, advertising, spam prevention, or email handling providers, but only for legitimate business purposes related to running the site.',
+      'We may also disclose information if required by law, to respond to legal process, to protect our rights, or to help prevent fraud, abuse, or security incidents.',
+    ],
+  },
+  {
+    title: '6. Data Retention',
+    body: [
+      'We retain contact submissions only for as long as reasonably necessary to respond to the message, maintain records, resolve disputes, or comply with legal obligations.',
+      'Usage and analytics data may be retained according to the settings and retention schedules of the third-party services that process that information on our behalf.',
+    ],
+  },
+  {
+    title: '7. Data Security',
+    body: [
+      'We use reasonable administrative, technical, and organisational measures to protect information under our control. However, no transmission over the internet or electronic storage method can be guaranteed to be completely secure.',
+      'You use the website and submit information to us at your own discretion and risk.',
+    ],
+  },
+  {
+    title: '8. Children\'s Privacy',
+    body: [
+      'TNKalviHub is intended as an educational resource for students, parents, and teachers. We do not knowingly collect personal information from children in violation of applicable law.',
+      'If you believe that a child has provided personal information to us without appropriate consent, please contact us so that we can review and, where appropriate, delete the information.',
+    ],
+  },
+  {
+    title: '9. Third-Party Links',
+    body: [
+      'The website may link to third-party pages, including official Tamil Nadu textbook resources, YouTube, and other external services. We are not responsible for the privacy practices, policies, or content of those external sites.',
+      'You should review the privacy policies of any third-party website before providing personal information or relying on their services.',
+    ],
+  },
+  {
+    title: '10. Your Choices and Rights',
+    body: [
+      'Subject to applicable law, you may request access to, correction of, or deletion of personal information you have provided to us. You may also object to certain processing or withdraw consent where consent is the legal basis for processing.',
+      'To make such a request, please contact us through the contact details or contact page provided on the website. We may need to verify your identity before acting on a request.',
+    ],
+  },
+  {
+    title: '11. Changes to This Policy',
+    body: [
+      'We may revise this Privacy Policy from time to time to reflect operational, legal, or regulatory changes. When we do, we will update the "Last updated" date at the top of this page.',
+      'Your continued use of the website after changes are posted constitutes acceptance of the revised Privacy Policy.',
+    ],
+  },
+  {
+    title: '12. Contact Us',
+    body: [
+      'If you have questions or concerns about this Privacy Policy or our handling of information, please contact us through the contact page on www.tnkalvihub.com.',
+    ],
+  },
+];
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="page-container py-10 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-2" style={{ color: 'var(--text-primary)' }}>
-        Privacy Policy
-      </h1>
-      <p className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
-        Last updated: May 2026
-      </p>
-
-      <div className="prose-like space-y-8" style={{ color: 'var(--text-primary)' }}>
-        {[
-          {
-            title: '1. Introduction',
-            body: `Welcome to TNKalviHub ("we", "our", "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains what information we collect, how we use it, and what rights you have in relation to it. By using our website (www.tnkalvihub.com), you agree to the terms of this Privacy Policy.`,
-          },
-          {
-            title: '2. Information We Collect',
-            body: `We may collect the following types of information:\n\n• Usage Data: We automatically collect certain information when you visit our website, including your IP address, browser type, pages visited, and time spent. This is collected via Google Analytics.\n\n• Contact Form Data: If you submit our contact form, we collect your name, email address, and the message content.\n\n• Cookies: We use cookies to understand how you use our site and to serve relevant advertisements through Google AdSense.`,
-          },
-          {
-            title: '3. How We Use Your Information',
-            body: `We use the information we collect to:\n\n• Analyse website traffic and user behaviour to improve our service (Google Analytics)\n• Respond to contact form messages\n• Display personalised advertisements (Google AdSense)\n• Improve the user experience of our website`,
-          },
-          {
-            title: '4. Google Analytics',
-            body: `We use Google Analytics to monitor and analyse web traffic. Google Analytics collects standard internet log information and visitor behaviour in an anonymous form. This information is processed in a way that does not identify anyone. For more information on Google Analytics privacy, visit: https://policies.google.com/privacy`,
-          },
-          {
-            title: '5. Google AdSense',
-            body: `We use Google AdSense to display advertisements on our website. Google AdSense may use cookies and web beacons to collect data and serve ads based on a user's prior visits to our website or other websites. Users can opt out of personalised advertising by visiting: https://www.google.com/settings/ads`,
-          },
-          {
-            title: '6. Third-Party Links',
-            body: `Our website contains links to third-party websites, including the official Tamil Nadu Textbooks website (tntextbooks.in) and YouTube. We are not responsible for the privacy practices of these external sites. We encourage you to review their privacy policies before submitting any personal information.`,
-          },
-          {
-            title: '7. Data Retention',
-            body: `Contact form data is retained only as long as necessary to respond to your query. Analytics data is retained in accordance with Google's data retention policies.`,
-          },
-          {
-            title: '8. Your Rights',
-            body: `You have the right to access, correct, or delete any personal information we hold about you. You may also withdraw consent to cookies at any time via your browser settings. To exercise these rights, contact us via our Contact page.`,
-          },
-          {
-            title: '9. Children\'s Privacy',
-            body: `Our website is intended to be used by students and their parents. We do not knowingly collect personal information from children under the age of 13 without parental consent.`,
-          },
-          {
-            title: '10. Changes to This Policy',
-            body: `We may update this Privacy Policy from time to time. We will notify users of any significant changes by updating the "Last updated" date at the top of this page.`,
-          },
-          {
-            title: '11. Contact Us',
-            body: `If you have any questions about this Privacy Policy, please contact us via our Contact page at www.tnkalvihub.com/contact.`,
-          },
-        ].map(({ title, body }) => (
-          <section key={title}>
-            <h2 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-              {title}
-            </h2>
-            <p className="text-sm leading-7 whitespace-pre-line" style={{ color: 'var(--text-secondary)' }}>
-              {body}
-            </p>
-          </section>
-        ))}
-      </div>
-    </div>
+    <LegalPage
+      title="Privacy Policy"
+      lastUpdated="May 7, 2026"
+      intro="TNKalviHub respects your privacy and is committed to being transparent about the limited information we collect in order to operate this educational website."
+      sections={sections}
+    />
   );
 }

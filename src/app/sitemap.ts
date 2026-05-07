@@ -21,5 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...staticPages, ...classPages];
+  const bookPages = classesData.flatMap((cls) =>
+    cls.books.map((book) => ({
+      url: `${BASE_URL}/class/${cls.id}/book/${book.id}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }))
+  );
+
+  return [...staticPages, ...classPages, ...bookPages];
 }

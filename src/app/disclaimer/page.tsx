@@ -1,61 +1,81 @@
 import type { Metadata } from 'next';
+import LegalPage from '@/components/LegalPage';
 
 export const metadata: Metadata = {
-  title: 'Disclaimer – TNKalviHub',
-  description: 'Read the Disclaimer for TNKalviHub. Important information about the nature of our website and its content.',
+  title: 'Disclaimer - TNKalviHub',
+  description: 'Read the TNKalviHub disclaimer regarding ownership, educational use, and third-party materials.',
 };
+
+const sections = [
+  {
+    title: '1. Independent Educational Website',
+    body: [
+      'TNKalviHub is an independent educational resource website created to help students, parents, and teachers locate Tamil Nadu textbook materials more easily.',
+      'TNKalviHub is not the official website of the Tamil Nadu Government, the School Education Department, or the Tamil Nadu Textbook and Educational Services Corporation, and no official affiliation, sponsorship, or endorsement is claimed.',
+    ],
+  },
+  {
+    title: '2. Ownership of Materials',
+    body: [
+      'All textbook materials, textbook PDFs, covers, subject content, and related educational materials made available through or referenced by this website are the property of the Tamil Nadu Textbook and Educational Services Corporation and/or the applicable government authorities and rights holders.',
+      'TNKalviHub does not claim ownership of those materials, does not represent them as its own, and does not assert any copyright or proprietary interest in them.',
+    ],
+  },
+  {
+    title: '3. Educational Purpose',
+    body: [
+      'These materials are presented solely for educational, informational, and reference purposes so that learners can more easily find official Tamil Nadu school textbook resources.',
+      'The website is intended to support study and access to public educational materials, not to replace official sources or create any commercial claim over the content.',
+    ],
+  },
+  {
+    title: '4. No Guarantee of Accuracy or Availability',
+    body: [
+      'Although we make reasonable efforts to keep links, class listings, and book information current, we do not guarantee that all content will always be accurate, complete, error-free, or continuously available.',
+      'Publishers, hosting providers, and government sources may update or remove materials at any time without notice. Users should verify important information with the relevant official source.',
+    ],
+  },
+  {
+    title: '5. External Links and Third-Party Hosting',
+    body: [
+      'The website may link to external sites, including official textbook portals, video platforms, or other third-party services. Those resources are controlled by their respective operators.',
+      'TNKalviHub is not responsible for third-party content, uptime, file integrity, privacy practices, advertisements, or any changes made on those external services.',
+    ],
+  },
+  {
+    title: '6. No Professional or Legal Advice',
+    body: [
+      'Content on TNKalviHub is provided as general educational information only and should not be treated as legal, regulatory, academic accreditation, or professional advice.',
+      'If you require official guidance regarding curriculum, publication rights, or regulatory matters, you should consult the relevant government authority or qualified adviser.',
+    ],
+  },
+  {
+    title: '7. Limitation of Responsibility',
+    body: [
+      'Your use of the website is at your own risk. TNKalviHub and its operators are not responsible for losses or damages arising from reliance on information, broken links, unavailable files, third-party actions, or interruptions in service.',
+    ],
+  },
+  {
+    title: '8. Advertisements and Monetisation',
+    body: [
+      'If advertisements appear on the website, they are displayed to support the operation and maintenance of the service. Their presence does not mean that TNKalviHub endorses any advertised product, service, or claim.',
+    ],
+  },
+  {
+    title: '9. Contact for Concerns',
+    body: [
+      'If you are a rights holder, representative, or user with a concern about any listing or reference on the website, please contact us through the contact page so the matter can be reviewed promptly.',
+    ],
+  },
+];
 
 export default function DisclaimerPage() {
   return (
-    <div className="page-container py-10 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-2" style={{ color: 'var(--text-primary)' }}>
-        Disclaimer
-      </h1>
-      <p className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
-        Last updated: May 2026
-      </p>
-
-      <div className="space-y-8">
-        {[
-          {
-            title: 'No Official Affiliation',
-            body: `TNKalviHub (www.tnkalvihub.com) is an independent, privately operated educational resource website. It is NOT affiliated with, endorsed by, or connected to the Tamil Nadu Government, the Tamil Nadu Textbook and Educational Services Corporation (TNTB), the School Education Department of Tamil Nadu, or any other government body.`,
-          },
-          {
-            title: 'External Links',
-            body: `All textbook PDF links on TNKalviHub redirect to files hosted on external platforms (including Google Drive), which are provided by the official Tamil Nadu Textbooks website (www.tntextbooks.in). We do not host, modify, store, or distribute any government-published textbook files. We are not responsible for the availability, accuracy, or content of these external files.`,
-          },
-          {
-            title: 'Accuracy of Information',
-            body: `While we make every effort to ensure that the information on TNKalviHub is current and correct, we make no warranties or representations of any kind about the completeness, accuracy, reliability, or availability of the website or its content. Subject and book information may be updated or changed by the Tamil Nadu Government. Always verify with the official website for the most up-to-date information.`,
-          },
-          {
-            title: 'Educational Purpose',
-            body: `This website is created purely for educational purposes to help Tamil Nadu students and parents easily find and access government-published textbooks. No financial gain is claimed from the distribution of textbook content.`,
-          },
-          {
-            title: 'Copyright',
-            body: `The textbooks linked on this website are copyrighted materials of the Tamil Nadu Government. They are made available by the government for free educational use. TNKalviHub does not claim ownership of any of these materials.`,
-          },
-          {
-            title: 'Advertisement Disclaimer',
-            body: `TNKalviHub displays advertisements through Google AdSense to support the running costs of the website. These advertisements are selected by Google's algorithms. TNKalviHub does not endorse the products or services advertised.`,
-          },
-          {
-            title: 'Contact',
-            body: `If you believe any content on this website infringes your rights or contains inaccurate information, please contact us via www.tnkalvihub.com/contact and we will address your concern promptly.`,
-          },
-        ].map(({ title, body }) => (
-          <section key={title}>
-            <h2 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-              {title}
-            </h2>
-            <p className="text-sm leading-7 whitespace-pre-line" style={{ color: 'var(--text-secondary)' }}>
-              {body}
-            </p>
-          </section>
-        ))}
-      </div>
-    </div>
+    <LegalPage
+      title="Disclaimer"
+      lastUpdated="May 7, 2026"
+      intro="Please read this disclaimer carefully before relying on information or educational resource links made available through TNKalviHub."
+      sections={sections}
+    />
   );
 }

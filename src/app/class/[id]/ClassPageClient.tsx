@@ -1,17 +1,93 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Download, ArrowLeft, BookOpen } from 'lucide-react';
+import { Download, ArrowLeft, BookOpen, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import type { ClassInfo, Book } from '@/data/books';
+import { buildClassDetailContent } from '@/lib/classDetails';
 
 // ── Single subject row inside a medium card ───────────────────────────────────
-function SubjectRow({ book, isTamil }: { book: Book; isTamil: boolean }) {
+function SubjectRow({ book, classId, isTamil }: { book: Book; classId: number; isTamil: boolean }) {
   const isPlaceholder = !book.driveLink || book.driveLink === '#';
+  const [isTruncated, setIsTruncated] = useState(false);
+  const spanRef = useRef<HTMLSpanElement>(null);
 
+  const subjectName = isTamil ? book.subjectTa : book.subject;
+
+  // Check if text would be truncated by measuring the span
+  useEffect(() => {
+    if (spanRef.current) {
+      const isOverflowing = spanRef.current.scrollWidth > spanRef.current.clientWidth;
+      setIsTruncated(isOverflowing);
+    }
+  }, [subjectName]);
+
+  // Option 4: Vertical stack layout when text would be truncated
+  if (isTruncated) {
+    return (
+      <div
+        className="flex flex-col gap-3 px-4 py-3 rounded-xl border"
+        style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-primary)' }}
+      >
+        {/* Subject name and buttons - Flex row for alignment */}
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+          {/* Subject name - Left side */}
+          <div className="flex items-start gap-3 flex-1">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: 'var(--bg-secondary)' }}
+            >
+              <BookOpen className="w-4 h-4" style={{ color: 'var(--text-secondary)' }} />
+            </div>
+            <h3 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>
+              {subjectName}
+            </h3>
+          </div>
+
+          {/* Buttons - Right side */}
+          <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0">
+            {/* Download button */}
+            <a
+              href={book.driveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => isPlaceholder && e.preventDefault()}
+              className={`flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors ${
+                isPlaceholder
+                  ? 'cursor-not-allowed'
+                  : 'hover:opacity-90'
+              }`}
+              style={
+                isPlaceholder
+                  ? { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }
+                  : { backgroundColor: '#E8500A', color: '#ffffff' }
+              }
+              title={isPlaceholder ? 'Link coming soon' : 'Download PDF'}
+            >
+              <Download className="w-4 h-4" />
+              {isPlaceholder
+                ? isTamil ? 'விரைவில்' : 'Soon'
+                : isTamil ? 'PDF பதிவிறக்கம்' : 'Download PDF'}
+            </a>
+
+            <Link
+              href={`/class/${classId}/book/${book.id}`}
+              className="flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors hover:opacity-90"
+              style={{ backgroundColor: '#E8500A', color: '#ffffff' }}
+              title="Read book details"
+            >
+              <FileText className="w-4 h-4" />
+              {isTamil ? 'புத்தக விவரம்' : 'Book Details'}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Default layout - original horizontal layout with truncate
   return (
     <div
-      className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl border"
+      className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-3 rounded-xl border"
       style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-primary)' }}
     >
       {/* Subject name */}
@@ -21,34 +97,50 @@ function SubjectRow({ book, isTamil }: { book: Book; isTamil: boolean }) {
         >
           <BookOpen className="w-4 h-4" style={{ color: 'var(--text-secondary)' }} />
         </div>
-        <span className="text-base font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
-          {isTamil ? book.subjectTa : book.subject}
+        <span 
+          ref={spanRef}
+          className="text-base font-semibold truncate" 
+          style={{ color: 'var(--text-primary)' }}
+        >
+          {subjectName}
         </span>
       </div>
 
-      {/* Download button */}
-      <a
-        href={book.driveLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => isPlaceholder && e.preventDefault()}
-        className={`flex-shrink-0 flex items-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors ${
-          isPlaceholder
-            ? 'cursor-not-allowed'
-            : 'hover:opacity-90'
-        }`}
-        style={
-          isPlaceholder
-            ? { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }
-            : { backgroundColor: '#E8500A', color: '#ffffff' }
-        }
-        title={isPlaceholder ? 'Link coming soon' : 'Download PDF'}
-      >
-        <Download className="w-4 h-4" />
-        {isPlaceholder
-          ? isTamil ? 'விரைவில்' : 'Soon'
-          : isTamil ? 'PDF பதிவிறக்கம்' : 'Download PDF'}
-      </a>
+      <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0">
+        {/* Download button */}
+        <a
+          href={book.driveLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => isPlaceholder && e.preventDefault()}
+          className={`flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors ${
+            isPlaceholder
+              ? 'cursor-not-allowed'
+              : 'hover:opacity-90'
+          }`}
+          style={
+            isPlaceholder
+              ? { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }
+              : { backgroundColor: '#E8500A', color: '#ffffff' }
+          }
+          title={isPlaceholder ? 'Link coming soon' : 'Download PDF'}
+        >
+          <Download className="w-4 h-4" />
+          {isPlaceholder
+            ? isTamil ? 'விரைவில்' : 'Soon'
+            : isTamil ? 'PDF பதிவிறக்கம்' : 'Download PDF'}
+        </a>
+
+        <Link
+          href={`/class/${classId}/book/${book.id}`}
+          className="flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors hover:opacity-90"
+          style={{ backgroundColor: '#E8500A', color: '#ffffff' }}
+          title="Read book details"
+        >
+          <FileText className="w-4 h-4" />
+          {isTamil ? 'புத்தக விவரம்' : 'Book Details'}
+        </Link>
+      </div>
     </div>
   );
 }
@@ -57,10 +149,12 @@ function SubjectRow({ book, isTamil }: { book: Book; isTamil: boolean }) {
 function MediumCard({
   medium,
   books,
+  classId,
   isTamil,
 }: {
   medium: 'Tamil Medium' | 'English Medium';
   books: Book[];
+  classId: number;
   isTamil: boolean;
 }) {
   const isTamilMedium = medium === 'Tamil Medium';
@@ -97,7 +191,7 @@ function MediumCard({
         style={{ backgroundColor: 'var(--bg-card)' }}
       >
         {books.map((book) => (
-          <SubjectRow key={book.id} book={book} isTamil={isTamil} />
+          <SubjectRow key={book.id} book={book} classId={classId} isTamil={isTamil} />
         ))}
       </div>
     </div>
@@ -109,11 +203,13 @@ function TermSection({
   term,
   tamilBooks,
   englishBooks,
+  classId,
   isTamil,
 }: {
   term: 1 | 2 | 3;
   tamilBooks: Book[];
   englishBooks: Book[];
+  classId: number;
   isTamil: boolean;
 }) {
   const [open, setOpen] = useState(true);
@@ -155,8 +251,8 @@ function TermSection({
       {open && (
         /* Side-by-side on md+, stacked on mobile */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <MediumCard medium="Tamil Medium" books={tamilBooks} isTamil={isTamil} />
-          <MediumCard medium="English Medium" books={englishBooks} isTamil={isTamil} />
+          <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} />
+          <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} />
         </div>
       )}
     </div>
@@ -167,10 +263,12 @@ function TermSection({
 function FullYearSection({
   tamilBooks,
   englishBooks,
+  classId,
   isTamil,
 }: {
   tamilBooks: Book[];
   englishBooks: Book[];
+  classId: number;
   isTamil: boolean;
 }) {
   return (
@@ -191,8 +289,8 @@ function FullYearSection({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <MediumCard medium="Tamil Medium" books={tamilBooks} isTamil={isTamil} />
-        <MediumCard medium="English Medium" books={englishBooks} isTamil={isTamil} />
+        <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} />
+        <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} />
       </div>
     </div>
   );
@@ -201,6 +299,7 @@ function FullYearSection({
 // ── Main exported component ───────────────────────────────────────────────────
 export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
   const { t, isTamil } = useLanguage();
+  const classDetail = buildClassDetailContent(cls);
 
   const tamilBooks = cls.books.filter((b) => b.medium === 'Tamil Medium');
   const englishBooks = cls.books.filter((b) => b.medium === 'English Medium');
@@ -280,6 +379,7 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
               term={term}
               tamilBooks={tamilBooks.filter((b) => b.term === term)}
               englishBooks={englishBooks.filter((b) => b.term === term)}
+              classId={cls.id}
               isTamil={isTamil}
             />
           ))}
@@ -289,9 +389,24 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
         <FullYearSection
           tamilBooks={tamilBooks}
           englishBooks={englishBooks}
+          classId={cls.id}
           isTamil={isTamil}
         />
       )}
+
+      <section className="card p-5 md:p-8 mt-8">
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-5" style={{ color: 'var(--text-primary)' }}>
+          {classDetail.title}
+        </h2>
+
+        <div className="space-y-5">
+          {[...classDetail.intro, ...classDetail.highlights, ...classDetail.guidance, ...classDetail.deepDive].map((paragraph) => (
+            <p key={paragraph} className="text-base leading-8" style={{ color: 'var(--text-secondary)' }}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </section>
 
       {/* Official source note */}
       <div

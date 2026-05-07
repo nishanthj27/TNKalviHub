@@ -548,3 +548,12 @@ export const classesData: ClassInfo[] = [
 
 export const getClassById = (id: number): ClassInfo | undefined =>
   classesData.find((c) => c.id === id);
+
+export const getBookById = (
+  classId: number,
+  bookId: string
+): { cls: ClassInfo; book: Book } | undefined => {
+  const cls = getClassById(classId);
+  const book = cls?.books.find((b) => b.id === bookId);
+  return cls && book ? { cls, book } : undefined;
+};

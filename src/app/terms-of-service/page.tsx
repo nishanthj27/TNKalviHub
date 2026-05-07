@@ -1,77 +1,110 @@
 import type { Metadata } from 'next';
+import LegalPage from '@/components/LegalPage';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service – TNKalviHub',
-  description: 'Read the Terms of Service for TNKalviHub. Understand the rules governing the use of our website.',
+  title: 'Terms of Service - TNKalviHub',
+  description: 'Read the Terms of Service that govern access to and use of TNKalviHub.',
 };
+
+const sections = [
+  {
+    title: '1. Acceptance of Terms',
+    body: [
+      'By accessing or using TNKalviHub, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree, you must not use the website.',
+      'These Terms apply to all visitors, users, and others who access the site.',
+    ],
+  },
+  {
+    title: '2. Nature of the Service',
+    body: [
+      'TNKalviHub is an independent educational website intended to help users discover and access Tamil Nadu school textbook resources more easily.',
+      'The website is not an official government website and is not affiliated with, endorsed by, or operated by the Tamil Nadu Textbook and Educational Services Corporation or any government department unless expressly stated otherwise.',
+    ],
+  },
+  {
+    title: '3. Educational Use Only',
+    body: [
+      'The website is provided for lawful, personal, and educational use only. You agree not to use the website for unlawful, misleading, commercial exploitation, or harmful purposes.',
+      'You may not use the website in a way that interferes with its normal operation or with the use of the website by others.',
+    ],
+  },
+  {
+    title: '4. Intellectual Property and Third-Party Materials',
+    body: [
+      'Except for third-party materials and official textbook resources, the website design, compilation, layout, branding, text written by TNKalviHub, and related original content are owned by or licensed to TNKalviHub.',
+      'Textbook materials, PDFs, and related educational resources referenced through the website remain the property of their respective owners, including the Tamil Nadu Textbook and Educational Services Corporation where applicable.',
+      'Nothing in these Terms transfers ownership of those materials to users or to TNKalviHub.',
+    ],
+  },
+  {
+    title: '5. Restrictions on Use',
+    body: [
+      'You agree not to copy, scrape, reproduce, republish, frame, mirror, reverse engineer, or exploit any part of the website except as permitted by law or with prior written permission.',
+      'You also agree not to introduce malware, attempt unauthorised access, overload the service, use automated extraction tools, or otherwise disrupt the website or connected systems.',
+    ],
+  },
+  {
+    title: '6. Accuracy and Availability',
+    body: [
+      'We strive to keep the website useful and up to date, but we do not guarantee that all information, links, or textbook references will always be accurate, complete, current, or available.',
+      'Official textbook listings, links, formats, and availability may change without notice based on updates made by the relevant publishers, hosting platforms, or government bodies.',
+    ],
+  },
+  {
+    title: '7. Third-Party Services and Links',
+    body: [
+      'TNKalviHub may include links to third-party websites, platforms, videos, or educational resources. Those links are provided for convenience only.',
+      'We do not control and are not responsible for third-party content, terms, privacy practices, security, uptime, or accuracy. Your use of third-party websites is at your own risk and subject to their own terms and policies.',
+    ],
+  },
+  {
+    title: '8. Disclaimer of Warranties',
+    body: [
+      'The website is provided on an "as is" and "as available" basis without warranties of any kind, whether express, implied, or statutory.',
+      'To the fullest extent permitted by law, TNKalviHub disclaims all warranties, including implied warranties of merchantability, fitness for a particular purpose, title, non-infringement, and uninterrupted availability.',
+    ],
+  },
+  {
+    title: '9. Limitation of Liability',
+    body: [
+      'To the fullest extent permitted by law, TNKalviHub and its operators will not be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages arising out of or related to your use of, or inability to use, the website.',
+      'This limitation applies even if we were advised that such damages were possible.',
+    ],
+  },
+  {
+    title: '10. Indemnity',
+    body: [
+      'You agree to indemnify and hold harmless TNKalviHub and its operators from claims, liabilities, damages, losses, and expenses arising out of your misuse of the website, violation of these Terms, or infringement of the rights of any third party.',
+    ],
+  },
+  {
+    title: '11. Changes to the Service or Terms',
+    body: [
+      'We may modify, suspend, or discontinue any part of the website at any time. We may also update these Terms of Service from time to time by posting a revised version on this page.',
+      'Your continued use of the website after changes take effect constitutes acceptance of the revised Terms.',
+    ],
+  },
+  {
+    title: '12. Governing Law',
+    body: [
+      'These Terms of Service are governed by the laws of India. Subject to applicable law, disputes arising from or relating to the website shall be subject to the courts having jurisdiction in Tamil Nadu, India.',
+    ],
+  },
+  {
+    title: '13. Contact',
+    body: [
+      'Questions about these Terms of Service may be sent through the contact page available on www.tnkalvihub.com.',
+    ],
+  },
+];
 
 export default function TermsPage() {
   return (
-    <div className="page-container py-10 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-extrabold mb-2" style={{ color: 'var(--text-primary)' }}>
-        Terms of Service
-      </h1>
-      <p className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
-        Last updated: May 2026
-      </p>
-
-      <div className="space-y-8">
-        {[
-          {
-            title: '1. Acceptance of Terms',
-            body: `By accessing or using TNKalviHub (www.tnkalvihub.com), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.`,
-          },
-          {
-            title: '2. About Our Service',
-            body: `TNKalviHub is an independent educational resource website that provides easy access to Tamil Nadu Government school textbooks. All textbook PDF links on our website redirect to the official Tamil Nadu Textbook and Educational Services Corporation (TNTB) website. We do not host or distribute any textbook files ourselves.`,
-          },
-          {
-            title: '3. Intellectual Property',
-            body: `The textbook PDFs linked on this website are the intellectual property of the Tamil Nadu Government and the Tamil Nadu Textbook and Educational Services Corporation. TNKalviHub does not claim any ownership over these materials. The website design, original content, and code of TNKalviHub are owned by TNKalviHub.`,
-          },
-          {
-            title: '4. Permitted Use',
-            body: `You may use TNKalviHub for personal, non-commercial, educational purposes only. You may not:\n\n• Reproduce, redistribute, or resell our website content\n• Attempt to gain unauthorised access to any part of the website\n• Use automated tools (bots, scrapers) to access our website\n• Use the website in any way that violates applicable laws`,
-          },
-          {
-            title: '5. Disclaimer of Warranties',
-            body: `TNKalviHub is provided "as is" without any warranties of any kind. We do not guarantee the accuracy, completeness, or availability of the information on this website. External links (including Google Drive links for PDFs) may change without notice and we are not responsible for their availability.`,
-          },
-          {
-            title: '6. Limitation of Liability',
-            body: `TNKalviHub and its operators shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of, or inability to use, this website or its linked content.`,
-          },
-          {
-            title: '7. Advertisements',
-            body: `Our website displays advertisements through Google AdSense. We are not responsible for the content of these advertisements. Clicking on ads is at your own discretion.`,
-          },
-          {
-            title: '8. External Links',
-            body: `Our website links to external websites including tntextbooks.in and YouTube. We are not responsible for the content, privacy practices, or availability of these external websites.`,
-          },
-          {
-            title: '9. Changes to Terms',
-            body: `We reserve the right to modify these Terms of Service at any time. Continued use of the website after changes constitutes acceptance of the new terms.`,
-          },
-          {
-            title: '10. Governing Law',
-            body: `These Terms of Service are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts of Tamil Nadu, India.`,
-          },
-          {
-            title: '11. Contact',
-            body: `For any questions about these Terms, please contact us via www.tnkalvihub.com/contact.`,
-          },
-        ].map(({ title, body }) => (
-          <section key={title}>
-            <h2 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-              {title}
-            </h2>
-            <p className="text-sm leading-7 whitespace-pre-line" style={{ color: 'var(--text-secondary)' }}>
-              {body}
-            </p>
-          </section>
-        ))}
-      </div>
-    </div>
+    <LegalPage
+      title="Terms of Service"
+      lastUpdated="May 7, 2026"
+      intro="These Terms of Service set out the rules, responsibilities, and legal conditions that apply when you access or use TNKalviHub."
+      sections={sections}
+    />
   );
 }

@@ -37,16 +37,22 @@ export default function Header() {
     { href: '/contact', label: t('contact') },
   ];
 
+  const legalLinks = [
+    { href: '/privacy-policy', label: t('privacy') },
+    { href: '/terms-of-service', label: t('terms') },
+    { href: '/disclaimer', label: t('disclaimer') },
+  ];
+
   return (
     <header
       className="sticky top-0 z-50 shadow-md"
       style={{ backgroundColor: 'var(--nav-bg)', borderBottom: '1px solid var(--border-color)' }}
     >
       <div className="page-container">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-center h-16 relative">
 
           {/* Logo + Brand */}
-          <Link href="/" className="flex items-center gap-2.5 min-w-0">
+          <Link href="/" className="flex items-center gap-2.5 min-w-0 absolute left-0">
             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-orange-400 bg-[#0f1b2d]">
               <Image
                 src="/channel_logo.png"
@@ -61,12 +67,12 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center justify-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium hover:text-brand-primary transition-colors"
+                className="text-lg font-medium hover:text-brand-primary transition-colors"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {link.label}
@@ -75,7 +81,7 @@ export default function Header() {
           </nav>
 
           {/* Controls */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 absolute right-0">
             <button
               onClick={toggleLanguage}
               className="text-sm font-semibold px-3 py-1.5 rounded-full border transition-colors hover:text-white"
@@ -117,7 +123,8 @@ export default function Header() {
 
         {/* Mobile Dropdown */}
         {menuOpen && (
-          <div className="md:hidden py-4 border-t space-y-1" style={{ borderColor: 'var(--border-color)' }}>
+          <div className="md:hidden py-4 border-t space-y-4" style={{ borderColor: 'var(--border-color)' }}>
+            <div className="space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -129,6 +136,25 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            </div>
+            <div className="border-t pt-3" style={{ borderColor: 'var(--border-color)' }}>
+              <p className="px-2 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>
+                Legal
+              </p>
+              <div className="mt-2 space-y-1">
+                {legalLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="block py-2.5 px-2 text-sm font-medium hover:text-brand-primary transition-colors rounded-lg"
+                    style={{ color: 'var(--text-secondary)' }}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>

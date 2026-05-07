@@ -35,6 +35,11 @@ export default function Footer() {
             <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               {t('footerDesc')}
             </p>
+            <p className="mt-3 text-xs leading-6" style={{ color: 'var(--text-secondary)' }}>
+              Textbook materials referenced on this site remain the property of the Tamil Nadu
+              Textbook and Educational Services Corporation and are shared here for educational
+              purposes.
+            </p>
             <a
               href="https://www.tntextbooks.in/p/school-books.html"
               target="_blank"
@@ -92,7 +97,18 @@ export default function Footer() {
           style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
         >
           <p>{t('copyright')}</p>
-          <p>{t('builtWith')}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link href="/privacy-policy" className="hover:text-brand-primary transition-colors">
+              {t('privacy')}
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-brand-primary transition-colors">
+              {t('terms')}
+            </Link>
+            <Link href="/disclaimer" className="hover:text-brand-primary transition-colors">
+              {t('disclaimer')}
+            </Link>
+            <span>{t('builtWith')}</span>
+          </div>
         </div>
       </div>
     </footer>
