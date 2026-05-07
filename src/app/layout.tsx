@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import './globals.css';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { LanguageProvider } from '@/context/LanguageContext';
@@ -6,8 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { Analytics } from '@vercel/analytics/next';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.tnkalvihub.com';
+import { isLanguage, siteUrl } from '@/lib/i18n';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,12 +43,23 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: { canonical: siteUrl },
+  alternates: {
+    canonical: `${siteUrl}/en/`,
+    languages: {
+      en: `${siteUrl}/en/`,
+      ta: `${siteUrl}/ta/`,
+      'x-default': `${siteUrl}/en/`,
+    },
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headerList = await headers();
+  const requestLanguage = headerList.get('x-tnk-lang') || 'en';
+  const language = isLanguage(requestLanguage) ? requestLanguage : 'en';
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={language} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -1,7 +1,11 @@
+import enCommon from '@/locales/en/common.json';
+import taCommon from '@/locales/ta/common.json';
+
 export type Language = 'en' | 'ta';
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
+    ...enCommon,
     // Nav
     home: 'Home',
     classes: 'Classes',
@@ -65,6 +69,7 @@ export const translations: Record<Language, Record<string, string>> = {
     theme_dark: 'Dark',
   },
   ta: {
+    ...taCommon,
     // Nav
     home: 'முகப்பு',
     classes: 'வகுப்புகள்',

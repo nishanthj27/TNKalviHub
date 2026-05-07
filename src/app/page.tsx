@@ -19,7 +19,7 @@ function BrandName() {
 }
 
 function QuickSearch() {
-  const { isTamil } = useLanguage();
+  const { isTamil, withLanguage } = useLanguage();
   const router = useRouter();
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedMedium, setSelectedMedium] = useState('');
@@ -36,7 +36,7 @@ function QuickSearch() {
     }
     setError('');
     // Both mediums are on the same page — navigate to the class page
-    router.push(`/class/${selectedClass}`);
+    router.push(withLanguage(`/class/${selectedClass}`));
   };
 
   const selectClass =

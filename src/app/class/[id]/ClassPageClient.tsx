@@ -5,9 +5,10 @@ import { Download, ArrowLeft, BookOpen, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import type { ClassInfo, Book } from '@/data/books';
 import { buildClassDetailContent } from '@/lib/classDetails';
+import { buildTamilClassDetailContent } from '@/lib/classDetailsTa';
 
 // ── Single subject row inside a medium card ───────────────────────────────────
-function SubjectRow({ book, classId, isTamil }: { book: Book; classId: number; isTamil: boolean }) {
+function SubjectRow({ book, classId, isTamil, detailsHref }: { book: Book; classId: number; isTamil: boolean; detailsHref: string }) {
   const isPlaceholder = !book.driveLink || book.driveLink === '#';
   const [isTruncated, setIsTruncated] = useState(false);
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -70,7 +71,7 @@ function SubjectRow({ book, classId, isTamil }: { book: Book; classId: number; i
             </a>
 
             <Link
-              href={`/class/${classId}/book/${book.id}`}
+              href={detailsHref}
               className="flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors hover:opacity-90"
               style={{ backgroundColor: '#E8500A', color: '#ffffff' }}
               title="Read book details"
@@ -132,7 +133,7 @@ function SubjectRow({ book, classId, isTamil }: { book: Book; classId: number; i
         </a>
 
         <Link
-          href={`/class/${classId}/book/${book.id}`}
+          href={detailsHref}
           className="flex items-center justify-center gap-1.5 text-sm font-bold px-4 py-2 rounded-xl transition-colors hover:opacity-90"
           style={{ backgroundColor: '#E8500A', color: '#ffffff' }}
           title="Read book details"
@@ -151,11 +152,13 @@ function MediumCard({
   books,
   classId,
   isTamil,
+  withLanguage,
 }: {
   medium: 'Tamil Medium' | 'English Medium';
   books: Book[];
   classId: number;
   isTamil: boolean;
+  withLanguage: (href: string) => string;
 }) {
   const isTamilMedium = medium === 'Tamil Medium';
   const label = isTamil
@@ -191,7 +194,13 @@ function MediumCard({
         style={{ backgroundColor: 'var(--bg-card)' }}
       >
         {books.map((book) => (
-          <SubjectRow key={book.id} book={book} classId={classId} isTamil={isTamil} />
+          <SubjectRow
+            key={book.id}
+            book={book}
+            classId={classId}
+            isTamil={isTamil}
+            detailsHref={withLanguage(`/class/${classId}/book/${book.id}`)}
+          />
         ))}
       </div>
     </div>
@@ -205,12 +214,14 @@ function TermSection({
   englishBooks,
   classId,
   isTamil,
+  withLanguage,
 }: {
   term: 1 | 2 | 3;
   tamilBooks: Book[];
   englishBooks: Book[];
   classId: number;
   isTamil: boolean;
+  withLanguage: (href: string) => string;
 }) {
   const [open, setOpen] = useState(true);
   const termLabel = isTamil ? `${term} ஆம் பருவம்` : `Term ${term}`;
@@ -251,8 +262,8 @@ function TermSection({
       {open && (
         /* Side-by-side on md+, stacked on mobile */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} />
-          <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} />
+          <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} withLanguage={withLanguage} />
+          <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} withLanguage={withLanguage} />
         </div>
       )}
     </div>
@@ -265,11 +276,13 @@ function FullYearSection({
   englishBooks,
   classId,
   isTamil,
+  withLanguage,
 }: {
   tamilBooks: Book[];
   englishBooks: Book[];
   classId: number;
   isTamil: boolean;
+  withLanguage: (href: string) => string;
 }) {
   return (
     <div className="mb-8">
@@ -289,8 +302,8 @@ function FullYearSection({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} />
-        <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} />
+        <MediumCard medium="Tamil Medium" books={tamilBooks} classId={classId} isTamil={isTamil} withLanguage={withLanguage} />
+        <MediumCard medium="English Medium" books={englishBooks} classId={classId} isTamil={isTamil} withLanguage={withLanguage} />
       </div>
     </div>
   );
@@ -298,8 +311,8 @@ function FullYearSection({
 
 // ── Main exported component ───────────────────────────────────────────────────
 export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
-  const { t, isTamil } = useLanguage();
-  const classDetail = buildClassDetailContent(cls);
+  const { t, isTamil, withLanguage } = useLanguage();
+  const classDetail = isTamil ? buildTamilClassDetailContent(cls) : buildClassDetailContent(cls);
 
   const tamilBooks = cls.books.filter((b) => b.medium === 'Tamil Medium');
   const englishBooks = cls.books.filter((b) => b.medium === 'English Medium');
@@ -308,7 +321,7 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
     <div className="page-container py-8">
       {/* Breadcrumb */}
       <Link
-        href="/"
+        href={withLanguage('/')}
         className="inline-flex items-center gap-1.5 text-base text-brand-primary hover:underline mb-6 font-medium"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -381,6 +394,7 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
               englishBooks={englishBooks.filter((b) => b.term === term)}
               classId={cls.id}
               isTamil={isTamil}
+              withLanguage={withLanguage}
             />
           ))}
         </>
@@ -391,6 +405,7 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
           englishBooks={englishBooks}
           classId={cls.id}
           isTamil={isTamil}
+          withLanguage={withLanguage}
         />
       )}
 

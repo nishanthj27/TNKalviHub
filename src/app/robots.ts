@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.tnkalvihub.com';
+import { siteUrl } from '@/lib/i18n';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

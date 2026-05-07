@@ -27,7 +27,7 @@ function BrandName() {
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { language, toggleLanguage, t, withLanguage } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -52,7 +52,7 @@ export default function Header() {
         <div className="flex items-center justify-center h-16 relative">
 
           {/* Logo + Brand */}
-          <Link href="/" className="flex items-center gap-2.5 min-w-0 absolute left-0">
+          <Link href={withLanguage('/')} className="flex items-center gap-2.5 min-w-0 absolute left-0" aria-label="TNKalviHub home">
             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-orange-400 bg-[#0f1b2d]">
               <Image
                 src="/channel_logo.png"
@@ -71,7 +71,7 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={withLanguage(link.href)}
                 className="text-lg font-medium hover:text-brand-primary transition-colors"
                 style={{ color: 'var(--text-secondary)' }}
               >
@@ -84,28 +84,37 @@ export default function Header() {
           <div className="flex items-center gap-2 absolute right-0">
             <button
               onClick={toggleLanguage}
-              className="text-sm font-semibold px-3 py-1.5 rounded-full border transition-colors hover:text-white"
+              className="inline-flex items-center gap-1 rounded-full border p-1 text-xs font-bold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
               style={{
                 color: '#F5A623',
                 borderColor: '#F5A623',
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#F5A623';
-                (e.currentTarget as HTMLButtonElement).style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent';
-                (e.currentTarget as HTMLButtonElement).style.color = '#F5A623';
-              }}
-              title="Toggle Language"
+              aria-label={language === 'en' ? 'Switch language to Tamil' : 'Switch language to English'}
+              aria-pressed={language === 'ta'}
+              title={language === 'en' ? 'Switch to Tamil' : 'Switch to English'}
             >
-              {language === 'en' ? 'தமிழ்' : 'EN'}
+              <span className="sr-only">{language === 'en' ? 'Current language English' : 'Current language Tamil'}</span>
+              <span
+                aria-hidden="true"
+                className={`rounded-full px-2 py-0.5 transition-colors ${language === 'en' ? 'text-white' : ''}`}
+                style={language === 'en' ? { backgroundColor: '#F5A623' } : undefined}
+              >
+                EN
+              </span>
+              <span
+                aria-hidden="true"
+                className={`rounded-full px-2 py-0.5 transition-colors ${language === 'ta' ? 'text-white' : ''}`}
+                style={language === 'ta' ? { backgroundColor: '#F5A623' } : undefined}
+              >
+                தமிழ்
+              </span>
             </button>
 
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               style={{ color: 'var(--text-primary)' }}
+              aria-label="Toggle color theme"
               title="Toggle Theme"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -115,6 +124,8 @@ export default function Header() {
               className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
               style={{ color: 'var(--text-primary)' }}
               onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={menuOpen}
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -128,7 +139,7 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={withLanguage(link.href)}
                 className="block py-2.5 px-2 text-base font-medium hover:text-brand-primary transition-colors rounded-lg"
                 style={{ color: 'var(--text-secondary)' }}
                 onClick={() => setMenuOpen(false)}
@@ -145,7 +156,7 @@ export default function Header() {
                 {legalLinks.map((link) => (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    href={withLanguage(link.href)}
                     className="block py-2.5 px-2 text-sm font-medium hover:text-brand-primary transition-colors rounded-lg"
                     style={{ color: 'var(--text-secondary)' }}
                     onClick={() => setMenuOpen(false)}

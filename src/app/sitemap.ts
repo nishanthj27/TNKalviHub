@@ -1,34 +1,44 @@
 import { MetadataRoute } from 'next';
 import { classesData } from '@/data/books';
+import { absoluteLocalizedUrl, languages, siteUrl } from '@/lib/i18n';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.tnkalvihub.com';
+function localizedEntry(path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']) {
+  return languages.map((language) => ({
+    url: absoluteLocalizedUrl(language, path),
+    lastModified: new Date(),
+    changeFrequency,
+    priority,
+    alternates: {
+      languages: {
+        en: absoluteLocalizedUrl('en', path),
+        ta: absoluteLocalizedUrl('ta', path),
+        'x-default': absoluteLocalizedUrl('en', '/'),
+      },
+    },
+  }));
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 1 },
-    { url: `${BASE_URL}/videos`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.5 },
-    { url: `${BASE_URL}/privacy-policy`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${BASE_URL}/terms-of-service`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${BASE_URL}/disclaimer`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 },
+    ...localizedEntry('/', 1, 'weekly'),
+    ...localizedEntry('/videos', 0.8, 'weekly'),
+    ...localizedEntry('/about', 0.6, 'monthly'),
+    ...localizedEntry('/contact', 0.5, 'monthly'),
+    ...localizedEntry('/privacy-policy', 0.3, 'yearly'),
+    ...localizedEntry('/terms-of-service', 0.3, 'yearly'),
+    ...localizedEntry('/disclaimer', 0.3, 'yearly'),
   ];
 
-  const classPages = classesData.map((cls) => ({
-    url: `${BASE_URL}/class/${cls.id}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.9,
-  }));
+  const classPages = classesData.flatMap((cls) => localizedEntry(`/class/${cls.id}`, 0.9, 'monthly'));
 
   const bookPages = classesData.flatMap((cls) =>
-    cls.books.map((book) => ({
-      url: `${BASE_URL}/class/${cls.id}/book/${book.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    }))
+    cls.books.flatMap((book) => localizedEntry(`/class/${cls.id}/book/${book.id}`, 0.8, 'monthly'))
   );
 
-  return [...staticPages, ...classPages, ...bookPages];
+  return [
+    { url: siteUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.2 },
+    ...staticPages,
+    ...classPages,
+    ...bookPages,
+  ];
 }

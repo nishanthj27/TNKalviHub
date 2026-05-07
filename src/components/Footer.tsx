@@ -4,7 +4,7 @@ import { BookOpen, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, withLanguage } = useLanguage();
 
   const quickLinks = [
     { href: '/', label: t('home') },
@@ -60,7 +60,7 @@ export default function Footer() {
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    href={link.href}
+                    href={withLanguage(link.href)}
                     className="text-sm hover:text-brand-primary transition-colors"
                     style={{ color: 'var(--text-secondary)' }}
                   >
@@ -80,7 +80,7 @@ export default function Footer() {
               {legalLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    href={link.href}
+                    href={withLanguage(link.href)}
                     className="text-sm hover:text-brand-primary transition-colors"
                     style={{ color: 'var(--text-secondary)' }}
                   >
@@ -98,13 +98,13 @@ export default function Footer() {
         >
           <p>{t('copyright')}</p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-            <Link href="/privacy-policy" className="hover:text-brand-primary transition-colors">
+            <Link href={withLanguage('/privacy-policy')} className="hover:text-brand-primary transition-colors">
               {t('privacy')}
             </Link>
-            <Link href="/terms-of-service" className="hover:text-brand-primary transition-colors">
+            <Link href={withLanguage('/terms-of-service')} className="hover:text-brand-primary transition-colors">
               {t('terms')}
             </Link>
-            <Link href="/disclaimer" className="hover:text-brand-primary transition-colors">
+            <Link href={withLanguage('/disclaimer')} className="hover:text-brand-primary transition-colors">
               {t('disclaimer')}
             </Link>
             <span>{t('builtWith')}</span>

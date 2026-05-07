@@ -4,13 +4,12 @@ export interface Video {
   titleTa: string;
   description: string;
   descriptionTa: string;
-  youtubeId: string; // YouTube video ID e.g. "dQw4w9WgXcQ"
+  youtubeId: string;
   youtubeUrl: string;
   thumbnail: string;
   classTag?: string;
 }
 
-// Replace youtubeId and youtubeUrl with your actual video details
 export const videosData: Video[] = [
   {
     id: 'v1',
@@ -25,8 +24,8 @@ export const videosData: Video[] = [
   },
   {
     id: 'v2',
-    title: 'TN 12th English Book 2026–27 PDF Download | Samacheer Kalvi 12th English Book Free (English Medium)',
-    titleTa: 'TN 12th English Book 2026–27 PDF Download | Samacheer Kalvi 12th English Book Free (English Medium)',
+    title: 'TN 12th English Book 2026-27 PDF Download | Samacheer Kalvi 12th English Book Free (English Medium)',
+    titleTa: 'TN 12th English Book 2026-27 PDF Download | Samacheer Kalvi 12th English Book Free (English Medium)',
     description: '',
     descriptionTa: '',
     youtubeId: 'bLZoAcfSaVg',
@@ -36,8 +35,8 @@ export const videosData: Video[] = [
   },
   {
     id: 'v3',
-    title: 'TN 12th Mathematics Volume 1 Book 2026–27 PDF Download | Samacheer Kalvi English Medium Free | 12th',
-    titleTa: 'TN 12th Mathematics Volume 1 Book 2026–27 PDF Download | Samacheer Kalvi English Medium Free | 12th',
+    title: 'TN 12th Mathematics Volume 1 Book 2026-27 PDF Download | Samacheer Kalvi English Medium Free | 12th',
+    titleTa: 'TN 12th Mathematics Volume 1 Book 2026-27 PDF Download | Samacheer Kalvi English Medium Free | 12th',
     description: '',
     descriptionTa: '',
     youtubeId: 'PpZ_JMko5-4',
@@ -47,5 +46,4 @@ export const videosData: Video[] = [
   },
 ];
 
-// Replace with your actual YouTube channel URL
 export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@NishanthEducation';

@@ -21,14 +21,14 @@ const CLASS_COLORS = [
 ];
 
 export default function ClassGrid() {
-  const { isTamil } = useLanguage();
+  const { isTamil, withLanguage } = useLanguage();
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
       {classesData.map((cls) => (
         <Link
           key={cls.id}
-          href={`/class/${cls.id}`}
+          href={withLanguage(`/class/${cls.id}`)}
           className={`bg-gradient-to-br ${CLASS_COLORS[cls.id - 1]} rounded-2xl p-5 text-white text-center hover:scale-105 transition-transform shadow-md`}
         >
           <div className="text-4xl font-extrabold">{cls.id}</div>
