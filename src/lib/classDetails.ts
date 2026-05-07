@@ -5,7 +5,7 @@ export type ClassDetailContent = {
   intro: string[];
   highlights: string[];
   guidance: string[];
-  deepDive: string[];
+  deepDive?: string[];
 };
 
 const classContent: Record<number, ClassDetailContent> = {

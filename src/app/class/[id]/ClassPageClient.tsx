@@ -400,7 +400,7 @@ export default function ClassPageClient({ cls }: { cls: ClassInfo }) {
         </h2>
 
         <div className="space-y-5">
-          {[...classDetail.intro, ...classDetail.highlights, ...classDetail.guidance, ...classDetail.deepDive].map((paragraph) => (
+          {[...classDetail.intro, ...classDetail.highlights, ...classDetail.guidance, ...(classDetail.deepDive || [])].map((paragraph) => (
             <p key={paragraph} className="text-base leading-8" style={{ color: 'var(--text-secondary)' }}>
               {paragraph}
             </p>
