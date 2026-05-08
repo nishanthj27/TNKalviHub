@@ -4,7 +4,7 @@ import { BookOpen, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
-  const { t, withLanguage } = useLanguage();
+  const { t, withLanguage, isTamil } = useLanguage();
 
   const quickLinks = [
     { href: '/', label: t('home') },
@@ -49,6 +49,11 @@ export default function Footer() {
               <ExternalLink className="w-4 h-4" />
               {t('officialSite')}
             </a>
+            <div className="mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+              <a href="mailto:tnkalvihub@gmail.com" className="hover:text-brand-primary transition-colors">
+                tnkalvihub@gmail.com
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -107,7 +112,7 @@ export default function Footer() {
             <Link href={withLanguage('/disclaimer')} className="hover:text-brand-primary transition-colors">
               {t('disclaimer')}
             </Link>
-            <span>{t('builtWith')}</span>
+            <span>{isTamil ? 'தமிழ்நாடு மாணவர்களுக்காக Nishanth Jayaraman உருவாக்கியது.' : 'Built by Nishanth Jayaraman for Tamil Nadu students.'}</span>
           </div>
         </div>
       </div>

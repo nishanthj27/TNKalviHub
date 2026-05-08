@@ -42,6 +42,12 @@ export default function ContactClient() {
               ? 'ஏதேனும் கேள்வி, உடைந்த இணைப்பு அல்லது பரிந்துரை இருந்தால் எங்களை தொடர்பு கொள்ளுங்கள்.'
               : 'Have a question, broken link, or suggestion? We would love to hear from you.'}
           </p>
+          <p className="mt-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+            {isTamil ? 'மின்னஞ்சல்:' : 'Email:'}{' '}
+            <a href="mailto:tnkalvihub@gmail.com" className="text-brand-primary hover:underline">
+              tnkalvihub@gmail.com
+            </a>
+          </p>
         </div>
 
         {submitted ? (

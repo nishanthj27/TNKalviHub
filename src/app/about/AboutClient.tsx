@@ -113,6 +113,25 @@ export default function AboutClient() {
         </div>
       </div>
 
+      {/* About the Creator */}
+      <div className="mb-12">
+        <h2 className="section-title mb-4">
+          {isTamil ? 'உருவாக்குநர் பற்றி' : 'About the Creator'}
+        </h2>
+        <div className="card p-6">
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            {isTamil
+              ? 'TNKalviHub-ஐ உருவாக்கியது Nishanth Jayaraman. தமிழ்நாடு மாணவர்கள் தமிழ் மற்றும் ஆங்கில வழியில் பாடநூல்கள் மற்றும் கல்வி வளங்களை எளிதாக அணுக உதவுவதற்காக இந்த தளம் உருவாக்கப்பட்டது.'
+              : 'TNKalviHub was created by Nishanth Jayaraman to help Tamil Nadu students easily access textbooks and educational resources in both Tamil and English medium.'}
+          </p>
+          <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--text-secondary)' }}>
+            {isTamil
+              ? 'இந்த தளத்தின் நோக்கம் மாணவர்கள் அனைவருக்கும் கற்றல் வளங்களை எளிதாக, விரைவாக, மற்றும் இலவசமாக கிடைக்கச் செய்வதே.'
+              : 'The goal of this platform is to make learning resources simple, fast, and freely accessible for all students.'}
+          </p>
+        </div>
+      </div>
+
       {/* Disclaimer */}
       <div
         className="rounded-xl p-6 text-sm"
