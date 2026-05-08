@@ -25,7 +25,7 @@ export function alternateMetadata(path = '/', canonicalLanguage: Language = defa
     languages: {
       en: absoluteLocalizedUrl('en', path),
       ta: absoluteLocalizedUrl('ta', path),
-      'x-default': absoluteLocalizedUrl(defaultLanguage, '/'),
+      'x-default': absoluteLocalizedUrl(defaultLanguage, path),
     },
   };
 }
