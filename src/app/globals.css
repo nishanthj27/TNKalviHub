@@ -55,6 +55,43 @@ body {
   }
 }
 
+  .video-title-area {
+    background: linear-gradient(180deg, #1E2A42 0%, #162032 100%);
+    border-top: 1px solid #2d4a6a;
+  }
+
+  .video-title {
+    color: #ffffff;
+  }
+
+  .video-title:hover {
+    color: #f5a623;
+  }
+
+  .video-description {
+    color: #a0aec0;
+  }
+
+  .watch-btn {
+    background: #F8500A;
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s ease;
+  }
+
+  .watch-btn:hover {
+    background: #FF6A23;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(248, 80, 10, 0.35);
+  }
+
+  .watch-btn:active {
+    transform: scale(0.98);
+  }
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }

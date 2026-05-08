@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { BookOpen, Play, ArrowRight, Search, FileText, HelpCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { classesData } from '@/data/books';
-import { videosData, YOUTUBE_CHANNEL_URL } from '@/data/videos';
+import { getYoutubeThumbnail, getYoutubeUrl, videosData, YOUTUBE_CHANNEL_URL } from '@/data/videos';
 import ClassGrid from '@/components/ClassGrid';
 
 function QuickSearch() {
@@ -284,11 +284,11 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videosData.map((video) => (
-              <a key={video.id} href={video.youtubeUrl} target="_blank" rel="noopener noreferrer" className="card overflow-hidden group">
+              <a key={video.id} href={getYoutubeUrl(video.youtubeId)} target="_blank" rel="noopener noreferrer" className="card overflow-hidden group">
                 <div className="relative aspect-video bg-gray-200 dark:bg-gray-700">
                   <img
-                    src={video.thumbnail}
-                    alt={isTamil ? video.titleTa : video.title}
+                    src={getYoutubeThumbnail(video.youtubeId)}
+                    alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/480x270?text=Video'; }}
                   />
@@ -303,10 +303,10 @@ export default function HomePage() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold text-sm leading-snug" style={{ color: 'var(--text-primary)' }}>
-                    {isTamil ? video.titleTa : video.title}
+                    {video.title}
                   </h3>
                   <p className="text-xs mt-1 line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
-                    {isTamil ? video.descriptionTa : video.description}
+                    {video.description}
                   </p>
                 </div>
               </a>
