@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { Play, Youtube, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import {
-  getYoutubeThumbnail,
-  getYoutubeUrl,
   videosData,
   YOUTUBE_CHANNEL_URL,
-  type Video,
 } from '@/data/videos';
-import { relatedVideosByVideoId, type RelatedVideoGroups } from '../../data/related-videos';
+import {
+  getRelatedYoutubeUrl,
+  relatedVideosByVideoId,
+  type RelatedVideo,
+  type RelatedVideoGroups,
+} from '../../data/related-videos';
 
 export default function VideoDetailClient({ videoId }: { videoId: string }) {
   const { t, isTamil, withLanguage } = useLanguage();
@@ -27,7 +29,7 @@ export default function VideoDetailClient({ videoId }: { videoId: string }) {
           ? 10
           : undefined;
 
-  const renderVideoGrid = (videos: Video[]) => {
+  const renderVideoGrid = (videos: RelatedVideo[]) => {
     if (videos.length === 0) {
       return (
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
@@ -39,7 +41,7 @@ export default function VideoDetailClient({ videoId }: { videoId: string }) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {videos.map((video) => {
-          const youtubeHref = getYoutubeUrl(video.youtubeId, video.youtubeUrl);
+          const youtubeHref = getRelatedYoutubeUrl(video.youtubeId, video.youtubeUrl);
           const bookHref =
             classIdForBooks && video.bookId
               ? withLanguage(`/class/${classIdForBooks}/book/${video.bookId}`)
@@ -70,7 +72,7 @@ export default function VideoDetailClient({ videoId }: { videoId: string }) {
             <div className="relative">
               <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden">
                 <img
-                  src={getYoutubeThumbnail(video.youtubeId, video.thumbnailUrl)}
+                  src={video.thumbnailUrl}
                   alt={video.title}
                   className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
                   onError={(e) => {

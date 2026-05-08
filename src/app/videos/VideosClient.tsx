@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { Play, Youtube, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { getYoutubeThumbnail, getYoutubeUrl, videosData, YOUTUBE_CHANNEL_URL } from '@/data/videos';
+import { getYoutubeUrl, videosData, YOUTUBE_CHANNEL_URL } from '@/data/videos';
 import { relatedVideosByVideoId } from '@/data/related-videos';
 
 export default function VideosClient() {
@@ -70,7 +70,7 @@ export default function VideosClient() {
           >
             <div className="relative w-full sm:w-96 lg:w-[26rem] aspect-video bg-gray-200 dark:bg-gray-700 shrink-0">
               <img
-                src={getYoutubeThumbnail(video.youtubeId, video.thumbnailUrl)}
+                src={video.thumbnailUrl}
                 alt={video.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
@@ -117,7 +117,7 @@ export default function VideosClient() {
               </p>
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <a
-                  href={getYoutubeUrl(video.youtubeId, video.youtubeUrl)}
+                  href={getYoutubeUrl(video.youtubeUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary inline-flex text-sm w-fit"
